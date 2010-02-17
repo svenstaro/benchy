@@ -1,0 +1,143 @@
+LiberationMono-Regular-Normal
+{
+	type		truetype
+	source		LiberationMono-Regular.ttf
+	size		24
+	resolution	96
+}
+
+LiberationMono-Bold-Normal
+{
+	type		truetype
+	source		LiberationMono-Bold.ttf
+	size		24
+	resolution	96
+}
+
+LiberationSans-Regular-Normal
+{
+	type		truetype
+	source		LiberationSans-Regular.ttf
+	size		24
+	resolution	96
+}
+
+LiberationSans-Bold-Normal
+{
+	type		truetype
+	source		LiberationSans-Bold.ttf
+	size		24
+	resolution	96
+}
+
+LiberationSerif-Regular-Normal
+{
+	type		truetype
+	source		LiberationSerif-Regular.ttf
+	size		24
+	resolution	96
+}
+
+LiberationSerif-Bold-Normal
+{
+	type		truetype
+	source		LiberationSerif-Bold.ttf
+	size		24
+	resolution	96
+}
+
+LiberationMono-Regular-Small
+{
+	type		truetype
+	source		LiberationMono-Regular.ttf
+	size		16
+	resolution	96
+}
+
+LiberationMono-Bold-Small
+{
+	type		truetype
+	source		LiberationMono-Bold.ttf
+	size		16
+	resolution	96
+}
+
+LiberationSans-Regular-Small
+{
+	type		truetype
+	source		LiberationSans-Regular.ttf
+	size		16
+	resolution	96
+}
+
+LiberationSans-Bold-Small
+{
+	type		truetype
+	source		LiberationSans-Bold.ttf
+	size		16
+	resolution	96
+}
+
+LiberationSerif-Regular-Small
+{
+	type		truetype
+	source		LiberationSerif-Regular.ttf
+	size		16
+	resolution	96
+}
+
+LiberationSerif-Bold-Small
+{
+	type		truetype
+	source		LiberationSerif-Bold.ttf
+	size		16
+	resolution	96
+}
+
+LiberationMono-Regular-Big
+{
+	type		truetype
+	source		LiberationMono-Regular.ttf
+	size		32
+	resolution	96
+}
+
+LiberationMono-Bold-Big
+{
+	type		truetype
+	source		LiberationMono-Bold.ttf
+	size		32
+	resolution	96
+}
+
+LiberationSans-Regular-Big
+{
+	type		truetype
+	source		LiberationSans-Regular.ttf
+	size		32
+	resolution	96
+}
+
+LiberationSans-Bold-Big
+{
+	type		truetype
+	source		LiberationSans-Bold.ttf
+	size		32
+	resolution	96
+}
+
+LiberationSerif-Regular-Big
+{
+	type		truetype
+	source		LiberationSerif-Regular.ttf
+	size		32
+	resolution	96
+}
+
+LiberationSerif-Bold-Big
+{
+	type		truetype
+	source		LiberationSerif-Bold.ttf
+	size		32
+	resolution	96
+}

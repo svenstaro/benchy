@@ -1,0 +1,100 @@
+BenchyOverlays/InfoOverlay
+{
+	zorder 200
+
+	container Panel(BenchyOverlayElements/InfoPanel)
+	{
+		top 0.05
+		left 0.04
+		width 0.1
+		height 0.1
+	
+		element TextArea(BenchyOverlayElements/InfoPanelName)
+		{
+			metrics_mode pixels
+			font_name LiberationSans-Bold-Big
+			char_height 32
+			colour_top 1 1 0.2
+			colour_bottom 1 0.8 0.1
+			caption InfoPanelName
+			top -4
+		}
+	
+		element TextArea(BenchyOverlayElements/InfoPanelRuntime)
+		{
+			metrics_mode pixels
+			font_name LiberationSans-Regular-Normal
+			char_height 24
+			colour_top 1 0.7 0.6
+			colour_bottom 0.2 0.1 0.2
+			caption InfoPanelRuntime
+			top 24
+		}
+	
+		element TextArea(BenchyOverlayElements/InfoPanelFrame)
+		{
+			metrics_mode pixels
+			font_name LiberationSans-Regular-Normal
+			char_height 24
+			colour_top 1 0.7 0.6
+			colour_bottom 0.2 0.1 0.2
+			caption InfoPanelFrame
+			top 48
+		}
+	
+		element TextArea(BenchyOverlayElements/InfoPanelFPS)
+		{
+			metrics_mode pixels
+			font_name LiberationSans-Regular-Normal
+			char_height 24
+			colour_top 1 0.7 0.6
+			colour_bottom 0.2 0.1 0.2
+			caption InfoPanelFPS
+			top 72
+		}
+	
+		element TextArea(BenchyOverlayElements/InfoPanelAvgFPS)
+		{
+			metrics_mode pixels
+			font_name LiberationSans-Regular-Normal
+			char_height 24
+			colour_top 1 0.7 0.6
+			colour_bottom 0.2 0.1 0.2
+			caption InfoPanelAvgFPS
+			top 96
+		}
+	
+		element TextArea(BenchyOverlayElements/InfoPanelBestFPS)
+		{
+			metrics_mode pixels
+			font_name LiberationSans-Regular-Normal
+			char_height 24
+			colour_top 1 0.7 0.6
+			colour_bottom 0.2 0.1 0.2
+			caption InfoPanelBestFPS
+			top 120
+		}
+	
+		element TextArea(BenchyOverlayElements/InfoPanelWorstFPS)
+		{
+			metrics_mode pixels
+			font_name LiberationSans-Regular-Normal
+			char_height 24
+			colour_top 1 0.7 0.6
+			colour_bottom 0.2 0.1 0.2
+			caption InfoPanelWorstFPS
+			top 144
+		}
+	
+		element TextArea(BenchyOverlayElements/InfoPanelTriangleCount)
+		{
+			metrics_mode pixels
+			font_name LiberationSans-Regular-Normal
+			char_height 24
+			colour_top 1 0.7 0.6
+			colour_bottom 0.2 0.1 0.2
+			caption InfoPanelTriangleCount
+			top 168
+		}
+	}
+}
