@@ -1,36 +1,7 @@
 #include <Ogre.h>
 #include <OIS.h>
 
-#include "Benchmark.hpp"
-
-void setupScene(const Ogre::Root&) {
-	Ogre::SceneManager *mgr = mRoot->createSceneManager(Ogre::ST_GENERIC, "Default SceneManager");
-	Ogre::Camera *cam = mgr->createCamera("Camera");
-	Ogre::Viewport *vp = mRoot->getAutoCreatedWindow()->addViewport(cam);
-}
-
-void runScene(const Ogre::Root&) {
-	mRenderWin->resetStatistics();
-	Ogre::uint32 frame_no = 0;
-
-	bool running;
-
-	while(running)
-	{
-		// let's render these manually for better control
-		root->renderOneFrame();
-
-		++frame_no;
-		updateStats(overlay, frame_no);
-
-		mKeyboard->capture();
-		if(mKeyboard->isKeyDown(OIS::KC_ESCAPE))
-			running = false;
-
-		// pump those messages or the window goes starving!
-	    Ogre::WindowEventUtilities::messagePump();
-	}
-}
+#include "Asteroids.hpp"
 
 #if OGRE_PLATFORM == PLATFORM_WIN32 || OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 #define WIN32_LEAN_AND_MEAN
@@ -42,11 +13,11 @@ int main(int argc, char **argv)
 #endif
 {
 	try	{
-		Benchmark("ogre.log", "../../common/cfg/plugins.cfg", 
-				"../../common/cfg/resources.cfg",
-				"Benchy - 3D Benchmark: Asteroids") benchapp;
-		setupScene();
-		runScene();
+		Asteroids AsteroidsApp;
+		AsteroidsApp.init("ogre.log", "../../common/cfg/plugins.cfg", 
+						  "../../common/cfg/resources.cfg", "Benchy - 3D Benchmark: Asteroids");
+		AsteroidsApp.setupScene();
+		AsteroidsApp.run();
     }
 	catch(std::exception& e)
     {

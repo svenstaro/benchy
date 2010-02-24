@@ -1,11 +1,6 @@
 #include "Benchmark.hpp"
 
-Benchmark::Benchmark(const Ogre::String& log_path, const Ogre::String& plugins_path,
-		  const Ogre::String& res_path, const Ogre::String& title) {
-	mLogPath = log_path;
-	mPluginsPath = plugins_path;
-	mResPath = res_path;
-	mTitle = title;
+Benchmark::Benchmark() {
 }
 
 Benchmark::~Benchmark() {
@@ -14,12 +9,31 @@ Benchmark::~Benchmark() {
 	delete mRoot;
 }
 
-void Benchmark::init() {
+void Benchmark::init(const Ogre::String& log_path, const Ogre::String& plugins_path,
+					 const Ogre::String& res_path, const Ogre::String& title) {
+	// set some crap
+	mLogPath = log_path;
+	mPluginsPath = plugins_path;
+	mResPath = res_path;
+	mTitle = title;
+
 	// create log
+	Ogre::LogManager* logMgr = new Ogre::LogManager();
 	mLog = Ogre::LogManager::getSingleton().createLog(mLogPath, true, true, false);
 
 	// create root
 	mRoot = new Ogre::Root(mPluginsPath); // root of all evil
+
+	// setup render system
+	// TODO: support D3D as well
+	mRenderSys = mRoot->getRenderSystemByName("OpenGL Rendering Subsystem");
+	mRoot->setRenderSystem(mRenderSys);
+	mRenderSys->setConfigOption("Full Screen", "No");
+	mRenderSys->setConfigOption("Video Mode", "1024 x  768");
+	mRenderSys->setConfigOption("RTT Preferred Mode", "VBO");
+
+	// create render window
+	mRenderWin = mRoot->initialise(true, mTitle);
 
 	// parse resources
 	Ogre::String secName, typeName, archName;
@@ -40,17 +54,6 @@ void Benchmark::init() {
 	// init resources
 	Ogre::TextureManager::getSingleton().setDefaultNumMipmaps(5);
 	Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
-
-	// setup render system
-	// TODO: support D3D as well
-	mRenderSys = mRoot->getRenderSystemByName("OpenGL Rendering Subsystem");
-	mRoot->setRenderSystem(mRenderSys);
-	mRenderSys->setConfigOption("Full Screen", "No");
-	mRenderSys->setConfigOption("Video Mode", "1024 x  768");
-	mRenderSys->setConfigOption("RTT Preferred Mode", "VBO");
-
-	// create render window
-	mRenderWin = mRoot->initialise(true, mTitle);
 
 	// setup input system
 	size_t windowHnd = 0;
