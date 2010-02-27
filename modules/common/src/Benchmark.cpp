@@ -47,7 +47,8 @@ void Benchmark::init(const Ogre::String& log_path, const Ogre::String& plugins_p
 		for (i = settings->begin(); i != settings->end(); ++i) {
 			typeName = i->first;
 			archName = i->second;
-			Ogre::ResourceGroupManager::getSingleton().addResourceLocation(archName, typeName, secName);
+			Ogre::ResourceGroupManager::getSingleton().addResourceLocation(archName, typeName, 
+																			secName, true);
 		}
 	}
 
@@ -81,6 +82,33 @@ void Benchmark::init(const Ogre::String& log_path, const Ogre::String& plugins_p
 		getChild("BenchyOverlayElements/InfoPanelName")->
 			setCaption(mTitle);
 	mInfoOverlay->show();
+}
+
+void Benchmark::debugStuff() {
+	if(mKeyboard->isKeyDown(OIS::KC_LEFT))
+		mCamera->yaw(Ogre::Degree(0.5f));
+	if(mKeyboard->isKeyDown(OIS::KC_RIGHT))
+		mCamera->yaw(Ogre::Degree(-0.5f));
+	if(mKeyboard->isKeyDown(OIS::KC_UP))
+		mCamera->pitch(Ogre::Degree(0.5f));
+	if(mKeyboard->isKeyDown(OIS::KC_DOWN))
+		mCamera->pitch(Ogre::Degree(-0.5f));
+	if(mKeyboard->isKeyDown(OIS::KC_W))
+		mCamera->moveRelative(Ogre::Vector3(0, 0, -1));
+	if(mKeyboard->isKeyDown(OIS::KC_S))
+		mCamera->moveRelative(Ogre::Vector3(0, 0, 1));
+	if(mKeyboard->isKeyDown(OIS::KC_A))
+		mCamera->moveRelative(Ogre::Vector3(-1, 0, 0));
+	if(mKeyboard->isKeyDown(OIS::KC_D))
+		mCamera->moveRelative(Ogre::Vector3(1, 0, 0));
+	if(mKeyboard->isKeyDown(OIS::KC_1))
+		mCamera->setPolygonMode(Ogre::PM_SOLID);
+	if(mKeyboard->isKeyDown(OIS::KC_2))
+		mCamera->setPolygonMode(Ogre::PM_WIREFRAME);
+	if(mKeyboard->isKeyDown(OIS::KC_3))
+		mCamera->setPolygonMode(Ogre::PM_POINTS);
+	if(mKeyboard->isKeyDown(OIS::KC_SYSRQ))
+		mRenderWin->writeContentsToTimestampedFile("shot_", ".png");
 }
 
 void Benchmark::updateStats(const Ogre::uint32 frame_no) {

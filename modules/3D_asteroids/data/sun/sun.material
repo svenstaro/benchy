@@ -1,0 +1,19 @@
+material BenchyMaterials/Sun
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			depth_write off
+			lighting off
+	
+			texture_unit
+			{
+				texture sun/sun.png
+				scale 1.0 1.0
+				filtering trilinear
+			}
+		}
+	}
+}

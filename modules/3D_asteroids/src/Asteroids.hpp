@@ -6,6 +6,7 @@
 class Asteroids : public Benchmark {
 public:
 	void setupScene();
+	void stepScene();
 	void run();
 };
 

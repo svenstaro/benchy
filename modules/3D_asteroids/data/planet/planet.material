@@ -1,0 +1,35 @@
+material BenchyMaterials/Planet
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture planet/planet.png
+				scale 1.0 1.0
+				filtering trilinear
+			}
+		}
+	}
+}
+
+material BenchyMaterials/PlanetAtmosphere
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			depth_write off
+			lighting off
+
+			texture_unit
+			{
+				texture planet/atmosphere.png
+				scale 1.0 1.0
+				filtering trilinear
+			}
+		}
+	}
+}
