@@ -10,7 +10,6 @@ void Asteroids::setupScene() {
 	mSceneMgr->setAmbientLight(Ogre::ColourValue(0.2, 0.2, 0.2));
 	mSceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_MODULATIVE);
 	mSceneMgr->setShadowColour( Ogre::ColourValue(0.5, 0.5, 0.5) );
-	mSceneMgr->setSkyBox(true, "BenchyMaterials/Sun");
 	Ogre::Entity* ent;
 
 	// TODO: make functional
@@ -20,6 +19,14 @@ void Asteroids::setupScene() {
 	// set up camera
     mCamera->setPosition(0, 50, 0);
     mCamera->lookAt(5000, 0, 0);
+
+	// create skysphere
+	ent = mSceneMgr->createEntity("Starfield", "starfield/starfield.mesh");
+	ent->setMaterialName("BenchyMaterials/Starfield");
+	Ogre::SceneNode* starnode = mSceneMgr->getRootSceneNode()->createChildSceneNode("Starfield");
+	starnode->setPosition(-0, 0, 0);
+	starnode->setScale(100000, 100000, 100000);
+	starnode->attachObject(ent);
 
 	// create base plane
 	Ogre::Plane plane(Ogre::Vector3::UNIT_Y, 0);
