@@ -4,7 +4,7 @@ material BenchyMaterials/Sun
 	{
 		pass
 		{
-			scene_blend alpha_blend
+			scene_blend src_alpha dest_alpha
 			depth_write off
 			lighting off
 	

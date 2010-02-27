@@ -9,7 +9,18 @@ material BenchyMaterials/Starfield
 		  texture_unit
 		  {
 			  texture starfield/starfield.png
-			  scale 0.1 0.1
+			  filtering anisotropic
+			  max_anisotropy 8
+			  scale 0.5 0.5
+		  }
+
+		  texture_unit
+		  {
+			  texture starfield/starfield.png
+			  filtering anisotropic
+			  max_anisotropy 8
+			  scale 0.5 0.5
+			  colour_op add
 		  }
 	  }   
    }

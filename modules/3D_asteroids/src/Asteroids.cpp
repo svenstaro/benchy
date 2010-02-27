@@ -47,6 +47,10 @@ void Asteroids::setupScene() {
 	sunnode->setScale(20, 20, 20);
 	sunnode->attachObject(sunset);
 
+	// create a sun flare
+	Ogre::Billboard* flareboard = sunset->createBillboard(0, 0, 0);
+	flareboard->setDimensions(500, 30);	
+
 	// create sun light
 	Ogre::Light* light = mSceneMgr->createLight("SunLight");
 	light->setType(Ogre::Light::LT_POINT);
@@ -54,6 +58,7 @@ void Asteroids::setupScene() {
 	light->setSpecularColour(0.1, 0.1, 1.0);
 	light->setAttenuation(100000, 1, 0.000005, 0);
 	light->setCastShadows(true);
+	light->setPowerScale(3); // for bloom (TODO)
 	sunnode->attachObject(light);
 
 	// create a planet
@@ -71,6 +76,8 @@ void Asteroids::setupScene() {
 	Ogre::Billboard* atmosphereboard = atmosphereset->createBillboard(0, 0, 0);
 	atmospherenode->setScale(0.65, 0.65, 0.65);
 	atmospherenode->attachObject(atmosphereset);
+
+	// create asteroid belt
 }
 
 void Asteroids::stepScene() {
