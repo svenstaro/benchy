@@ -13,6 +13,7 @@ public:
 	virtual void run() = 0;
 	void debugStuff();
 	void updateStats(const Ogre::uint32);
+	void takeScreenshot();
 
 protected:
 	Benchmark();

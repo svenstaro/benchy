@@ -142,3 +142,7 @@ void Benchmark::updateStats(const Ogre::uint32 frame_no) {
 		setCaption("Triangle Count: "+Ogre::StringConverter::toString(triangle_count));
 }
 
+void Benchmark::takeScreenshot() {
+	mRenderWin->writeContentsToTimestampedFile("screenshot",".png");
+}
+

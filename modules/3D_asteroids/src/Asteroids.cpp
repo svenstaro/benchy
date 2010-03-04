@@ -8,7 +8,7 @@ void Asteroids::setupScene() {
 	mCamera = mSceneMgr->createCamera("Camera");
 	mViewport = mRoot->getAutoCreatedWindow()->addViewport(mCamera);
 	mSceneMgr->setAmbientLight(Ogre::ColourValue(0.2, 0.2, 0.2));
-	mSceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_MODULATIVE);
+	//mSceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_MODULATIVE);
 	mSceneMgr->setShadowColour( Ogre::ColourValue(0.5, 0.5, 0.5) );
 	Ogre::Entity* ent;
 
@@ -78,6 +78,8 @@ void Asteroids::setupScene() {
 	atmospherenode->attachObject(atmosphereset);
 
 	// create asteroid belt
+	
+	// create space ship
 }
 
 void Asteroids::stepScene() {
@@ -110,6 +112,8 @@ void Asteroids::run() {
 		mKeyboard->capture();
 		if(mKeyboard->isKeyDown(OIS::KC_ESCAPE))
 			running = false;
+		if(mKeyboard->isKeyDown(OIS::KC_F11))
+			takeScreenshot();
 	
 		// TODO: remove this
 		debugStuff();
@@ -120,3 +124,4 @@ void Asteroids::run() {
 	    Ogre::WindowEventUtilities::messagePump();
 	}
 }
+
