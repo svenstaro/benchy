@@ -1,8 +1,8 @@
 default: 
-	g++ *.cpp -o array.bin
+	g++ -O2 -lboost_thread-mt *.cpp -o array.bin
 
 debug:
-	g++ -g *.cpp -o array.bin
+	g++ -g -lboost_thread-mt *.cpp -o array.bin
 
 run: default
 	./array.bin
