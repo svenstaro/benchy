@@ -51,8 +51,9 @@ uint32_t CPU_count_run(std::string mode) {
 		result += i;
 
 	// Make result sane and output it as score.
-	std::cout << "result: " << result << std::endl;
+	std::cout << "    Result: " << result << std::endl;
 	score = result/100000;
+	std::cout << "    Score: " << score << std::endl;
 
 	return score;
 }

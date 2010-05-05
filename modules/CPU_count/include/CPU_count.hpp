@@ -2,7 +2,8 @@
  * This benchmark mainly tests raw CPU speed in a threaded/non-threaded
  * task. It assumes a scenario where a few hundred data containers have
  * to be modified independently of each other using simple arithmetic.
- * It uses OpenMP for doing multiprocessing.
+ * It uses OpenMP for doing multiprocessing. 
+ * The score is determined by the total summarized number of the container.
  */
 
 #include <boost/asio.hpp>
@@ -14,10 +15,10 @@
 #include <string>
 #include <vector>
 
-// number of entries to be processed
-#define ENTRIES	150 // needs to be even or threads will fail
-// time to run each task in seconds
-#define TIME 5.0
+// Number of entries to be processed.
+#define ENTRIES	150
+// Time to run each task in seconds.
+#define TIME 7.0
 
-// mode can be either "single" or "multi" to indicate multiprocessing off/on
+// Mode can be either "single" or "multi" to indicate multiprocessing off/on.
 uint32_t CPU_count_run(std::string mode);
