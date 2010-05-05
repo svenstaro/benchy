@@ -10,6 +10,7 @@ add_library(benchy_app_common STATIC
 
 target_link_libraries(benchy_app_common
 	${Boost_LIBRARIES}
+	${OpenMP_CXX_FLAGS}
 )
 
 set(benchy_app_cli_sources

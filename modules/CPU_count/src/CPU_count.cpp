@@ -25,7 +25,7 @@ uint32_t CPU_count_run(std::string mode) {
 	std::vector<uint64_t> int_vec;
 
 	// Fill the container up with the amount of defined max entries.
-	for(uint32_t i; i < ENTRIES; ++i)
+	for(uint32_t i = 0; i < ENTRIES; ++i)
 		int_vec.push_back(0);
 
 	// Boost.Timer would be great here instead of using the more complicated 
@@ -34,12 +34,25 @@ uint32_t CPU_count_run(std::string mode) {
 	boost::asio::deadline_timer timer(io);
 	timer.expires_from_now(boost::posix_time::seconds(TIME));
 
-//#pragma omp parallel for schedule(dynamic, 1) shared(int_vec) private(i)
-	uint32_t i = omp_get_thread_num();
-	boost::posix_time::time_duration time_until_expiry = timer.expires_from_now();
-	while(!time_until_expiry.is_negative()) {
-		int_vec[i] = 0;
+	// Status messages.
+	std::cout << "Start CPU_count in " << mode << " mode." << std::endl;
+	std::cout << "Using " << threads << " threads." << std::endl;
+
+	// Do actual counting "work" here.
+#pragma omp parallel shared(int_vec) num_threads(threads)
+	while(!timer.expires_from_now().is_negative()) {
+		for(uint32_t i = 0; i < ENTRIES; ++i)
+			int_vec[i] += 1;
 	}
+
+	// Calculate scores here.
+	uint64_t result = 0;
+	BOOST_FOREACH(uint64_t i, int_vec)
+		result += i;
+
+	// Make result sane and output it as score.
+	std::cout << "result: " << result << std::endl;
+	score = result/100000;
 
 	return score;
 }
