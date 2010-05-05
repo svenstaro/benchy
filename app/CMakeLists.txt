@@ -24,7 +24,6 @@ set(benchy_app_qt_sources
 if(BENCHY_BUILD_MODULES_CPU)
 	target_link_libraries(benchy_app_common
 		CPU_count
-		CPU_fibonacci
 		CPU_smallpt
 	)
 endif(BENCHY_BUILD_MODULES_CPU)

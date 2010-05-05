@@ -8,7 +8,6 @@ typedef std::map<std::string, uint32_t> score_map;
 // This is what you call a compile-time plugin system. (YEAAAAAAAAH!)
 #ifdef BUILD_CPU_TESTS
 #include "CPU_count.hpp"
-#include "CPU_fibonacci.hpp"
 #include "CPU_smallpt.hpp"
 #endif
 

@@ -16,7 +16,6 @@ void TestManager::RunTests() {
 #ifdef BUILD_CPU_TESTS
 	// CPU single core tests
 	m_score_map["cpu_single_core_score"] += CPU_count_run("single");
-	m_score_map["cpu_single_core_score"] += CPU_fibonacci_run();
 	m_score_map["cpu_single_core_score"] += CPU_smallpt_run("single");
 
 	// CPU multi core tests
