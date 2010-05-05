@@ -2,7 +2,6 @@
  * This benchmark mainly tests raw CPU speed in a threaded/non-threaded
  * environment. It assumes a scenario where a few hundred data containers have
  * to be modified independently of each other.
- *
  */
 
 #include <boost/foreach.hpp>
