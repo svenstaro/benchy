@@ -5,7 +5,6 @@
  * It uses OpenMP for doing multiprocessing.
  */
 
-#include <boost/asio.hpp>
 #include <boost/cstdint.hpp>
 #include <boost/date_time/microsec_time_clock.hpp>
 #include <boost/date_time/local_time/local_time.hpp>

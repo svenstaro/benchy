@@ -128,4 +128,4 @@ int main () {
 
 	return 0;
 }
-// vim:set ts=4 ws=4 noet:
+// vim:set ts=4 sw=4 noet:

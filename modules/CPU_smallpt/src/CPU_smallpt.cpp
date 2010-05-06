@@ -97,12 +97,17 @@ uint32_t CPU_smallpt_run(std::string mode) {
 		exit(1);
 	}
 
-	// Get current date to compare with afterwards to check running time.
-	boost::posix_time::ptime date_before = boost::posix_time::microsec_clock::local_time();
-
 	// Status messages.
 	std::cout << "Start CPU_smallpt in " << mode << " mode." << std::endl;
 	std::cout << "Using " << threads << " threads." << std::endl;
+
+	// Declare timers to use later on for time comparsion.
+	boost::posix_time::ptime date_before;
+	boost::posix_time::ptime date_after;
+	boost::posix_time::time_duration running_time;
+
+	// Get current date to compare with afterwards to check running time.
+	date_before = boost::posix_time::microsec_clock::local_time();
 
 	int w=400, h=400, samps = 1; // # samples
 	Ray cam(Vec(50,52,295.6), Vec(0,-0.042612,-1).norm()); // cam pos, dir
@@ -129,12 +134,12 @@ uint32_t CPU_smallpt_run(std::string mode) {
 	//	fprintf(f,"%d %d %d ", toInt(c[i].x), toInt(c[i].y), toInt(c[i].z));
 
 	// Compare dates to get running time.
-	boost::posix_time::ptime date_after = boost::posix_time::microsec_clock::local_time();
-	boost::posix_time::time_duration running_time = date_after - date_before;
+	date_after = boost::posix_time::microsec_clock::local_time();
+	running_time = date_after - date_before;
 
 	// Calculate a sane score.
 	uint32_t result = running_time.total_milliseconds();
-	std::cout << "    Result: " << result << "ms" << std::endl;
+	std::cout << "    Result: " << result << " ms" << std::endl;
 	score = (1.f/float(result))*30000000;
 	std::cout << "    Score: " << score << std::endl;
 

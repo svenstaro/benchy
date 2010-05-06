@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 2.8.0)
 project(benchy)
 
 option(BENCHY_BUILD_MODULES_CPU "Build benchy CPU modules" ON)
-#option(BENCHY_BUILD_MODULES_MEM "Build benchy MEM modules" ON)
+option(BENCHY_BUILD_MODULES_MEM "Build benchy MEM modules" ON)
 #option(BENCHY_BUILD_MODULES_HDD "Build benchy HDD modules" ON)
 #option(BENCHY_BUILD_MODULES_2D "Build benchy 2D modules" ON)
 #option(BENCHY_BUILD_MODULES_3D "Build benchy 3D modules" ON)

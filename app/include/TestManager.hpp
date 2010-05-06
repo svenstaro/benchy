@@ -11,12 +11,13 @@ typedef std::map<std::string, uint32_t> score_map;
 #include "CPU_smallpt.hpp"
 #endif
 
-/*
+
 #ifdef BUILD_MEM_TESTS
-#include "MEM_array.hpp"
+//#include "MEM_array.hpp"
 #include "MEM_malloc.hpp"
 #endif
 
+/*
 #ifdef BUILD_HDD_TESTS
 #include "HDD_readwrite.hpp"
 #endif

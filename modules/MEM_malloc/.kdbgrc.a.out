@@ -1,0 +1,22 @@
+[Breakpoint 0]
+Enabled=true
+File=src/MEM_malloc.cpp
+Line=18
+Temporary=false
+
+[General]
+DebuggerCmdStr=
+DriverName=GDB
+FileVersion=1
+OptionsSelected=
+ProgramArgs=
+TTYLevel=7
+WorkingDirectory=
+
+[Memory]
+ColumnWidths=80,0
+NumExprs=0
+
+[Watches]
+Expr0=memory_blob
+Expr1=memory_blob[i]

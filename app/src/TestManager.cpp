@@ -27,14 +27,15 @@ void TestManager::RunTests() {
 	m_score_map["cpu_multi_core_score"] /= 2;
 #endif
 
-/*
+
 #ifdef BUILD_MEM_TESTS
-	m_score_map["mem_score"] += MEM_array_run();
+	//m_score_map["mem_score"] += MEM_array_run();
 	m_score_map["mem_score"] += MEM_malloc_run();
 	// Get average.
-	m_score_map["mem_score"] /= 2;
+	m_score_map["mem_score"] /= 1;
 #endif
 
+/*
 #ifdef BUILD_HDD_TESTS
 	m_score_map["hdd_score"] += HDD_readwrite_run();
 	// Get average.
