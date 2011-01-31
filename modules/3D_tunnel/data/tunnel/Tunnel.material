@@ -1,0 +1,19 @@
+material BenchyMaterials/Tunnel
+{
+	technique
+	{
+		pass
+		{
+			emissive 1.0 1.0 1.0
+			scene_blend alpha_blend
+
+			texture_unit
+			{
+				texture tunnel/tunnel.png
+				scale 1.0 1.0
+				filtering trilinear
+			
+			}
+		}
+	}
+}

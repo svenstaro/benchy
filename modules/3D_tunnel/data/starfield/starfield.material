@@ -1,0 +1,27 @@
+material BenchyMaterials/Starfield
+{
+   technique
+   {
+      pass
+	  {
+		  lighting off
+
+		  texture_unit
+		  {
+			  texture starfield/starfield.png
+			  filtering anisotropic
+			  max_anisotropy 8
+			  scale 0.5 0.5
+		  }
+
+		  texture_unit
+		  {
+			  texture starfield/starfield.png
+			  filtering anisotropic
+			  max_anisotropy 8
+			  scale 0.5 0.5
+			  colour_op add
+		  }
+	  }   
+   }
+}
