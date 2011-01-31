@@ -36,11 +36,11 @@ void Tunnel::setupScene() {
     tunnel->colour(0.5f, 0.5f, 0.5f, 0.5f);
 
 	float radius = 30,
-		  part_length = 50,
-		  segments = 8,
+		  part_length = 32,
+		  segments = 6,
 		  parts = 1000;
 
-	float alphadiff = Ogre::Math::PI / segments;
+	float alphadiff = 2 * Ogre::Math::PI / segments;
 
 	for(unsigned int p = 0; p < parts; ++p) {
 		// create one ring
@@ -111,8 +111,10 @@ void Tunnel::stepScene() {
 
 	//Ogre::Node* ground = mSceneMgr->getRootSceneNode()->getChild("ground");
 	//ground->pitch(Ogre::Degree(10.0f*last_frame_time));
+	
+	if(last_frame_time > 0.1) last_frame_time = 0.1;
 	Ogre::Camera* cam = mSceneMgr->getCamera("Camera");
-	cam->move(Ogre::Vector3(0.f,0.f, 100*last_frame_time));
+	cam->move(Ogre::Vector3(0.f,0.f, 500*last_frame_time));
 	cam->setPosition( 
 			100 * cos(cam->getPosition().z / 500.f), 
 			100 * sin(cam->getPosition().z / 500.f), 

@@ -2,17 +2,17 @@ material BenchyMaterials/Tunnel
 {
 	technique
 	{
-		pass
-		{
-			emissive 1.0 1.0 1.0
-			scene_blend alpha_blend
+		pass {
+			lighting off
 
-			texture_unit
-			{
+			emissive 1 1 1
+
+			scene_blend alpha_blend
+			depth_write off
+
+			texture_unit {
 				texture tunnel/tunnel.png
-				scale 1.0 1.0
-				filtering trilinear
-			
+				colour_op replace
 			}
 		}
 	}
