@@ -44,15 +44,16 @@ void Tunnel::setupScene() {
 
 	for(unsigned int p = 0; p < parts; ++p) {
 		// create one ring
+		float df = p * part_length;
+		float df2 = (p+1) * part_length;
+
+		float dx = GetDisplacement(df).x;
+		float dy = GetDisplacement(df).y;
+		float dx2 = GetDisplacement(df2).x;
+		float dy2 = GetDisplacement(df2).y;
+
+
 		for(float alpha = 0; alpha < 2*Ogre::Math::PI; alpha += alphadiff) {
-
-			float df = p * part_length / 500.0;
-			float df2 = (p+1) * part_length / 500.0;
-
-			float dx = cos(df) * 100;
-			float dy = sin(df) * 100;
-			float dx2 = cos(df2) * 100;
-			float dy2 = sin(df2) * 100;
 
 			float x = cos(alpha) * radius;
 			float y = sin(alpha) * radius;
@@ -114,17 +115,19 @@ void Tunnel::stepScene() {
 	
 	if(last_frame_time > 0.1) last_frame_time = 0.1;
 	Ogre::Camera* cam = mSceneMgr->getCamera("Camera");
-	cam->move(Ogre::Vector3(0.f,0.f, 500*last_frame_time));
+	cam->move(Ogre::Vector3(0.f,0.f, 200*last_frame_time));
+	float z = cam->getPosition().z;
 	cam->setPosition( 
-			100 * cos(cam->getPosition().z / 500.f), 
-			100 * sin(cam->getPosition().z / 500.f), 
-			cam->getPosition().z);
+			GetDisplacement(z).x,
+			GetDisplacement(z).y,
+			z);
 
-	float forward = 30;
-	cam->lookAt(Ogre::Vector3(
-			100 * cos((forward+cam->getPosition().z) / 500.f), 
-			100 * sin((forward+cam->getPosition().z) / 500.f), 
-			cam->getPosition().z + forward));
+	z += 30;
+	cam->lookAt( 
+			GetDisplacement(z).x,
+			GetDisplacement(z).y,
+			z);
+
 }
 
 void Tunnel::run() {
@@ -156,3 +159,11 @@ void Tunnel::run() {
 	}
 }
 
+Ogre::Vector3 Tunnel::GetDisplacement(float z) {
+	z /= 20000;
+	noise::module::Perlin perlin;
+	return Ogre::Vector3(
+			perlin.GetValue(z,0,0) * 5000,
+			perlin.GetValue(0,z,0) * 5000,
+			0);
+}
