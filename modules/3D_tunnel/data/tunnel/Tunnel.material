@@ -5,15 +5,18 @@ material BenchyMaterials/Tunnel
 		pass {
 			lighting off
 
-			emissive 1 1 1
+			#emissive 1 1 1
 
-			scene_blend alpha_blend
-			depth_write off
+			#scene_blend alpha_blend
+			#depth_write off
 
 			texture_unit {
 				texture tunnel/tunnel.png
 				colour_op replace
+				filtering anisotropic
+				max_anisotropy 8
 			}
+
 		}
 	}
 }
