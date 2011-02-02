@@ -14,7 +14,7 @@ material BenchyMaterials/Tunnel
 				texture tunnel/tunnel.png
 				colour_op replace
 				filtering anisotropic
-				max_anisotropy 8
+				max_anisotropy 2
 			}
 
 		}
