@@ -2,101 +2,49 @@
 
 #include "Tunnel.hpp"
 
+Tunnel::Tunnel(float radius, float segments, float parts, float part_length, float speed) {
+	mRadius = radius;
+	mSegments = segments;
+	mParts = parts;
+	mPartLength = part_length;
+	mSpeed = speed;
+}
+
 void Tunnel::setupScene() {
 	// generic scene stuff
 	mSceneMgr = mRoot->createSceneManager(Ogre::ST_GENERIC, "Default SceneManager");
 	mCamera = mSceneMgr->createCamera("Camera");
 	mViewport = mRoot->getAutoCreatedWindow()->addViewport(mCamera);
-	mSceneMgr->setAmbientLight(Ogre::ColourValue(0.2, 0.2, 0.2));
+	//mSceneMgr->setAmbientLight(Ogre::ColourValue(0.2, 0.2, 0.2));
 	//mSceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_MODULATIVE);
-	mSceneMgr->setShadowColour( Ogre::ColourValue(0.5, 0.5, 0.5) );
-	Ogre::Entity* ent;
+	//mSceneMgr->setShadowColour( Ogre::ColourValue(0.5, 0.5, 0.5) );
+
+	Ogre::ColourValue fadeColour(0, 0, 0);
+	mViewport->setBackgroundColour(fadeColour);
+	mSceneMgr->setFog(Ogre::FOG_LINEAR, fadeColour, 0.0, 50, 500);
 
 	// TODO: make functional
 	//Ogre::CompositorManager::getSingleton().addCompositor(mViewport, "Bloom3");
 	//Ogre::CompositorManager::getSingleton().setCompositorEnabled(mViewport, "Bloom3", true); 
 
 	// set up camera
-    //mCamera->setPosition(0, 50, 0);
-    //mCamera->lookAt(5000, 0, 0);
+	Ogre::SceneNode* camnode = mSceneMgr->getRootSceneNode()->createChildSceneNode("camnode");
 	mCamera->setNearClipDistance(5);
-	mCamera->lookAt(0,0,1);
+	camnode->attachObject(mCamera);
 
 	// create skysphere
-	ent = mSceneMgr->createEntity("Starfield", "starfield/starfield.mesh");
+	Ogre::Entity* ent = mSceneMgr->createEntity("Starfield", "starfield/starfield.mesh");
 	ent->setMaterialName("BenchyMaterials/Starfield");
-	Ogre::SceneNode* starnode = mSceneMgr->getRootSceneNode()->createChildSceneNode("Starfield");
+	Ogre::SceneNode* starnode = camnode->createChildSceneNode("Starfield");
 	starnode->setPosition(-0, 0, 0);
 	starnode->setScale(100000, 100000, 100000);
 	starnode->attachObject(ent);
 
-	Ogre::ManualObject* tunnel = mSceneMgr->createManualObject("tunnel");
-	
-	tunnel->begin("BenchyMaterials/Tunnel", Ogre::RenderOperation::OT_TRIANGLE_LIST);
-    tunnel->colour(0.5f, 0.5f, 0.5f, 0.5f);
+	mTunnelObject = mSceneMgr->createManualObject("tunnel");
+	Ogre::SceneNode *tunnelNode = mSceneMgr->getRootSceneNode()->createChildSceneNode("tunnelnode");
+	tunnelNode->attachObject(mTunnelObject);
 
-	float radius = 30,
-		  part_length = 32,
-		  segments = 6,
-		  parts = 1000;
-
-	float alphadiff = 2 * Ogre::Math::PI / segments;
-
-	for(unsigned int p = 0; p < parts; ++p) {
-		// create one ring
-		float df = p * part_length;
-		float df2 = (p+1) * part_length;
-
-		float dx = GetDisplacement(df).x;
-		float dy = GetDisplacement(df).y;
-		float dx2 = GetDisplacement(df2).x;
-		float dy2 = GetDisplacement(df2).y;
-
-
-		for(float alpha = 0; alpha < 2*Ogre::Math::PI; alpha += alphadiff) {
-
-			float x = cos(alpha) * radius;
-			float y = sin(alpha) * radius;
-			float xn = cos(alpha + alphadiff) * radius;
-			float yn = sin(alpha + alphadiff) * radius;
-
-			Ogre::Vector3 normal1 = -Ogre::Vector3(x,y,0).normalisedCopy();
-			Ogre::Vector3 normal2 = -Ogre::Vector3(xn,yn,0).normalisedCopy();
-			
-			// triangle 1
-			tunnel->position(xn + dx, yn + dy, p * part_length);
-			tunnel->normal(Ogre::Real(normal2.x), Ogre::Real(normal2.y), Ogre::Real(normal2.z));
-			tunnel->textureCoord(Ogre::Real(0), Ogre::Real(0));
-	
-			tunnel->position(x + dx, y + dy, p * part_length);
-			tunnel->normal(Ogre::Real(normal1.x), Ogre::Real(normal1.y), Ogre::Real(normal1.z));
-			tunnel->textureCoord(Ogre::Real(0), Ogre::Real(1));
-		
-			tunnel->position(x + dx2, y + dy2, (p+1) * part_length);
-			tunnel->normal(Ogre::Real(normal1.x), Ogre::Real(normal1.y), Ogre::Real(normal1.z));
-			tunnel->textureCoord(Ogre::Real(1), Ogre::Real(1));
-
-			// triangle 2
-			tunnel->position(xn + dx2, yn + dy2, (p+1) * part_length);
-			tunnel->normal(Ogre::Real(normal2.x), Ogre::Real(normal2.y), Ogre::Real(normal2.z));
-			tunnel->textureCoord(Ogre::Real(1), Ogre::Real(0));
-			
-			tunnel->position(xn + dx, yn + dy, p * part_length);
-			tunnel->normal(Ogre::Real(normal1.x), Ogre::Real(normal1.y), Ogre::Real(normal1.z));
-			tunnel->textureCoord(Ogre::Real(0), Ogre::Real(0));
-			
-			tunnel->position(x + dx2, y + dy2, (p+1) * part_length);
-			tunnel->normal(Ogre::Real(normal2.x), Ogre::Real(normal2.y), Ogre::Real(normal2.z));
-			tunnel->textureCoord(Ogre::Real(1), Ogre::Real(1));
-			
-
-		}
-	}
-		  
-	tunnel->end();
-
-	Ogre::SceneNode *tunnelNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
-	tunnelNode->attachObject(tunnel);
+	GenerateTunnel();
 
 }
 
@@ -112,21 +60,22 @@ void Tunnel::stepScene() {
 
 	//Ogre::Node* ground = mSceneMgr->getRootSceneNode()->getChild("ground");
 	//ground->pitch(Ogre::Degree(10.0f*last_frame_time));
-	
-	if(last_frame_time > 0.1) last_frame_time = 0.1;
-	Ogre::Camera* cam = mSceneMgr->getCamera("Camera");
-	cam->move(Ogre::Vector3(0.f,0.f, 200*last_frame_time));
+
+	Ogre::SceneNode* cam = mSceneMgr->getSceneNode("camnode");
+	cam->translate(Ogre::Vector3(0.f,0.f, mSpeed*last_frame_time));
 	float z = cam->getPosition().z;
-	cam->setPosition( 
+	cam->setPosition(
 			GetDisplacement(z).x,
 			GetDisplacement(z).y,
 			z);
 
 	z += 30;
-	cam->lookAt( 
-			GetDisplacement(z).x,
-			GetDisplacement(z).y,
-			z);
+	cam->lookAt( Ogre::Vector3(
+				GetDisplacement(z).x,
+				GetDisplacement(z).y,
+				z), Ogre::Node::TS_WORLD);
+
+	GenerateTunnel(round(z / mPartLength) - 10);
 
 }
 
@@ -148,16 +97,76 @@ void Tunnel::run() {
 			running = false;
 		if(mKeyboard->isKeyDown(OIS::KC_F11))
 			takeScreenshot();
-	
+
 		// TODO: remove this
 		debugStuff();
 
 		stepScene();
 
 		// pump those messages or the window goes starving!
-	    Ogre::WindowEventUtilities::messagePump();
+		Ogre::WindowEventUtilities::messagePump();
 	}
 }
+
+void Tunnel::GenerateTunnel(int first_part) {
+	mTunnelObject->clear();
+	mTunnelObject->begin("BenchyMaterials/Tunnel", Ogre::RenderOperation::OT_TRIANGLE_LIST);
+	mTunnelObject->colour(0.5f, 0.5f, 0.5f, 0.5f);
+
+	float alphadiff = 2 * Ogre::Math::PI / mSegments;
+	for(unsigned int p = 0; p < mParts; ++p) {
+		for(float alpha = 0; alpha < 2*Ogre::Math::PI; alpha += alphadiff) {
+			AddQuad(mTunnelObject, alpha, p + first_part);
+		}
+	}
+	mTunnelObject->end();
+}
+
+void Tunnel::AddQuad(Ogre::ManualObject* o, float alpha, int part) {
+	float alphadiff = 2 * Ogre::Math::PI / mSegments;
+	float df = part * mPartLength;
+	float df2 = (part+1) * mPartLength;
+
+	float dx = GetDisplacement(df).x;
+	float dy = GetDisplacement(df).y;
+	float dx2 = GetDisplacement(df2).x;
+	float dy2 = GetDisplacement(df2).y;
+
+	float x = cos(alpha) * mRadius;
+	float y = sin(alpha) * mRadius;
+	float xn = cos(alpha + alphadiff) * mRadius;
+	float yn = sin(alpha + alphadiff) * mRadius;
+
+	Ogre::Vector3 normal1 = -Ogre::Vector3(x,y,0).normalisedCopy();
+	Ogre::Vector3 normal2 = -Ogre::Vector3(xn,yn,0).normalisedCopy();
+
+	// triangle 1
+	o->position(xn + dx, yn + dy, part * mPartLength);
+	o->normal(Ogre::Real(normal2.x), Ogre::Real(normal2.y), Ogre::Real(normal2.z));
+	o->textureCoord(Ogre::Real(0), Ogre::Real(0));
+
+	o->position(x + dx, y + dy, part * mPartLength);
+	o->normal(Ogre::Real(normal1.x), Ogre::Real(normal1.y), Ogre::Real(normal1.z));
+	o->textureCoord(Ogre::Real(0), Ogre::Real(1));
+
+	o->position(x + dx2, y + dy2, (part+1) * mPartLength);
+	o->normal(Ogre::Real(normal1.x), Ogre::Real(normal1.y), Ogre::Real(normal1.z));
+	o->textureCoord(Ogre::Real(1), Ogre::Real(1));
+
+	// triangle 2
+	o->position(xn + dx2, yn + dy2, (part+1) * mPartLength);
+	o->normal(Ogre::Real(normal2.x), Ogre::Real(normal2.y), Ogre::Real(normal2.z));
+	o->textureCoord(Ogre::Real(1), Ogre::Real(0));
+
+	o->position(xn + dx, yn + dy, part * mPartLength);
+	o->normal(Ogre::Real(normal1.x), Ogre::Real(normal1.y), Ogre::Real(normal1.z));
+	o->textureCoord(Ogre::Real(0), Ogre::Real(0));
+
+	o->position(x + dx2, y + dy2, (part+1) * mPartLength);
+	o->normal(Ogre::Real(normal2.x), Ogre::Real(normal2.y), Ogre::Real(normal2.z));
+	o->textureCoord(Ogre::Real(1), Ogre::Real(1));
+}
+
 
 Ogre::Vector3 Tunnel::GetDisplacement(float z) {
 	z /= 20000;
