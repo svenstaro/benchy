@@ -60,8 +60,8 @@ void Tunnel::setupScene() {
 			float xn = cos(alpha + alphadiff) * radius;
 			float yn = sin(alpha + alphadiff) * radius;
 
-			Ogre::Vector3 normal1 = Ogre::Vector3(x,y,0).normalisedCopy();
-			Ogre::Vector3 normal2 = Ogre::Vector3(xn,yn,0).normalisedCopy();
+			Ogre::Vector3 normal1 = -Ogre::Vector3(x,y,0).normalisedCopy();
+			Ogre::Vector3 normal2 = -Ogre::Vector3(xn,yn,0).normalisedCopy();
 			
 			// triangle 1
 			tunnel->position(xn + dx, yn + dy, p * part_length);
